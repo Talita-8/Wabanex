@@ -8,15 +8,13 @@ defmodule WabanexWeb.IMCController do
     |> handle_response(conn)
   end
 
-  def handle_response({:ok, result}, conn) do
-    conn
-    |> put_status(:ok)
-    |> json(result)
-  end
+  defp handle_response({:ok, result}, conn), do: render_response(conn, result, :ok)
 
-  def handle_response({:error, result}, conn) do
+  defp handle_response({:error, result}, conn), do: render_response(conn, result, :bad_request)
+
+  defp render_response(conn, result, status) do
     conn
-    |> put_status(:bad_request)
-    |> json(result)
+    |> put_status(status)
+    |> json(%{result: result})
   end
 end
