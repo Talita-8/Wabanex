@@ -1,5 +1,5 @@
 defmodule Wabanex.IMC do
-  def calculate(filename) do
+  def calculate(%{"filename" => filename}) do
     filename
     |> File.read()
     |> handle_file()
